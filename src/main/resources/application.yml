@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:55002/postgres
+    schema: public
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 50
+      connection-timeout: 30000
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 500
+        order_updates: true
+        order_inserts: true
+
+server:
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 50
