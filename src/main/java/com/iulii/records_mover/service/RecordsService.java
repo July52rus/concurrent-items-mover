@@ -42,7 +42,7 @@ public class RecordsService {
     @Retryable(maxAttempts = 3, backoff = @Backoff(delay = 50), retryFor = ConcurrentModificationException.class)
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void moveItemBetween(UUID itemId, UUID afterId, UUID beforeId) {
-        // Блокируем только перемещаемый элемент
+        // Блокируем перемещаемый элемент и соседей
         MovableRecord itemToMove = repository.findByIdWithLock(itemId).orElseThrow(() -> new EntityNotFoundException("Item not found"));
 
         NeighborPositions neighborPositions = getNeighborPositions(afterId, beforeId);
